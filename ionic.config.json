@@ -1,0 +1,7 @@
+{
+  "name": "komiku_160720034",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

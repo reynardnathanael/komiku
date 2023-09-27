@@ -1,0 +1,91 @@
+<ion-slides pager="true">
+  <ion-slide *ngFor="let content of contents">
+    <div class="slide">
+      <img src="{{ content.url }}" />
+    </div>
+  </ion-slide>
+</ion-slides>
+<br>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-button *ngIf="favorited == 0" style="width: 100%;" (click)="addFavorite()">Add to my favorite</ion-button>
+      <ion-button color="danger" *ngIf="favorited == 1" style="width: 100%;" (click)="presentAlert()">Remove from
+        favorite</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button color="medium" *ngIf="rated == 1" style="width: 100%;">Rated</ion-button>
+      <ion-content>
+        <ion-button *ngIf="rated == 0" style="width: 100%;" id="show-modal" expand="block">Rate comic</ion-button>
+        <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <ion-modal #modal trigger="show-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+          <ng-template>
+            <ion-content>
+              <ion-list style="text-align: center; align-items: center;">
+                <ion-item style="text-align: center; align-items: center; padding-top: 10px;">
+                  <ion-title>Give your rating!</ion-title>
+                </ion-item>
+                <ion-item>
+                  <ngx-star-rating style="margin: auto;" [(ngModel)]="rating" [id]="'rating'"></ngx-star-rating>
+                </ion-item>
+                <ion-button style="margin: 25px auto;" (click)="addRating()">Submit</ion-button>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </ion-content>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<div class="comment-bg ion-padding">
+  <div class="comment-container" id="comment">
+    <div class="comment" *ngFor="let comment of comments; let i = index">
+      <div class="people-comment outline">
+        <div class="wrapper">
+          <ion-avatar>
+            <img src="{{ comment.avatar }}" alt="">
+          </ion-avatar>
+          <div class="box last">
+            <strong>{{ comment.user_name }}</strong>
+            <hr>
+            {{ comment.isi }}
+          </div>
+          <ion-button (click)="target = comment.isi; parent_id = comment.id"
+            style="--border-radius: 50%; width: 45px; height: 45px; padding: 0; margin-left: 10px;">
+            <ion-icon name="arrow-undo"></ion-icon>
+          </ion-button>
+        </div>
+        <span>{{ comment.timestamp }}</span>
+      </div>
+      <div *ngFor="let reply of replies">
+        <div class="people-comment outline" *ngIf="reply.parent_id == comment.id">
+          <div class="wrapper">
+            <ion-avatar>
+              <img src="{{ reply.avatar }}" alt="">
+            </ion-avatar>
+            <div class="box last">
+              <strong>{{ reply.user_name }}</strong>
+              <hr>
+              {{ reply.isi }}
+            </div>
+          </div>
+          <span>{{ reply.timestamp }}</span>
+        </div>
+      </div>
+      <br><br>
+    </div>
+  </div>
+  <ion-card>
+    <ion-item *ngIf="target != ''">
+      <ion-text style="width: 100%;">{{ target }}</ion-text>
+      <ion-icon style="cursor: pointer;" name="close-circle" (click)="target = ''; parent_id = 0"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-textarea rows={6} cols={20} placeholder="Enter your comment here..."
+        [(ngModel)]="commentValue"></ion-textarea>
+      <ion-button style="top: 50%; transform: translateY(70%);" (click)="addComment()">Send</ion-button>
+    </ion-item>
+  </ion-card>
+</div>

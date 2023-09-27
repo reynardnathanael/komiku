@@ -1,0 +1,24 @@
+<br>
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let favorite of favorites" size-sm="6">
+      <ion-card>
+        <img src="{{ favorite.cover }}" style="cursor: pointer;" (click)="updateView(favorite.comic_id)" />
+        <ion-card-header>
+          <ion-card-subtitle style="font-size: 18px;">
+            <ion-icon name="star" color="warning"></ion-icon> {{ favorite.average }}
+          </ion-card-subtitle>
+          <ion-card-title>{{ favorite.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content style="font-size: 18px;">
+          <div class="ion-text-left" style="display: inline-block;width: 50%;">
+            <ion-icon name="eye"></ion-icon><ion-label> {{ favorite.view }} </ion-label>
+          </div>
+          <div class="ion-text-right" style="display: inline-block;width: 50%;">
+            <ion-icon name="chatbubble"></ion-icon><ion-label> {{ favorite.count_comment }} </ion-label>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

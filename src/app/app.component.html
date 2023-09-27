@@ -1,0 +1,97 @@
+<ion-app *ngIf="!user_id">
+  <ion-header>
+    <ion-toolbar color="main">
+      <ion-title>Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <br><br>
+    <div style="text-align: center;">
+      <img src="assets/img/logo.png" alt="">
+    </div>
+    <ion-card>
+      <ion-item>
+        <ion-input name="email" type="email" placeholder="your@email.com" [(ngModel)]='login_user'>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input name="password" type="password" placeholder="Password" [(ngModel)]='login_passwd'>
+        </ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" (click)='login()'>Login</ion-button>
+      <ion-chip *ngIf="login_error">{{login_error}}</ion-chip>
+    </ion-card>
+  </ion-content>
+</ion-app>
+  
+<ion-app *ngIf="user_id">
+  <ion-menu content-id="content">
+    <ion-header color="primary">
+      <ion-toolbar color="primary">
+        <ion-card style="width: 100%; height: 100%; margin: 0;padding: 30px 0;bottom: 0;box-shadow: none !important;text-align: center;" color="primary">
+          <ion-avatar style="margin: auto;height: 100px;width: 100px;"> 
+            <img src="{{avatar}}" alt=""> 
+          </ion-avatar> 
+          <br>
+          <ion-title color="light"><strong>{{user_id}}</strong></ion-title>
+          <ion-card-subtitle color="light" style="margin-top: 5px;">{{user_name}}</ion-card-subtitle>
+        </ion-card>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-menu-toggle>
+        <ion-list>
+          <ion-item>
+            <ion-icon name="home" slot="start"></ion-icon>
+            <ion-label routerLink="/home" style="cursor:pointer ;">Home</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="search" slot="start"></ion-icon>
+            <ion-label routerLink="/search" style="cursor:pointer ;">Search Comics</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="log-out" slot="start"></ion-icon>
+            <ion-label type="submit" style="cursor:pointer ;" (click)='logout()'>Logout</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-menu-toggle>
+    </ion-content>
+  </ion-menu>
+
+  <ion-header>
+    <ion-toolbar color="main">
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <div style="height: 70px;">
+        <img style="height: 100%; padding: 12px 0;" src="assets/img/logo-vertical.png" alt="">
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <router-outlet id="content"> </router-outlet>
+  </ion-content>
+
+  <ion-toolbar>
+    <ion-segment value="{{ currentRoute }}">
+      <ion-segment-button value="home" routerLink="/home">
+        <ion-icon name="home"></ion-icon>
+        <ion-label class="ion-text-capitalize" style="font-size: 12px;">Home</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="comic" routerLink="/comic">
+        <ion-icon name="book"></ion-icon>
+        <ion-label class="ion-text-capitalize" style="font-size: 12px;">Comics</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="category" routerLink="/category">
+        <ion-icon name="list"></ion-icon>
+        <ion-label class="ion-text-capitalize" style="font-size: 12px;">Categories</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="favorite" routerLink="/favorite">
+        <ion-icon name="heart"></ion-icon>
+        <ion-label class="ion-text-capitalize" style="font-size: 12px;">My Favorites</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-app>

@@ -1,0 +1,33 @@
+<ion-segment [scrollable]="true" value="all">
+  <ion-segment-button value="all" (click)="listComic()">
+    <ion-label>All</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="{{ category.category_name }}" *ngFor="let category of categories" (click)="category_id = category.category_id; listComicByCategory()">
+    <ion-label>{{ category.category_name }}</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+<br>
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let comic of comics" size-sm="6" style="padding: 6px;">
+      <ion-card>
+        <img src="{{ comic.cover }}" style="cursor: pointer;" (click)="updateView(comic.comic_id)" />
+        <ion-card-header>
+          <ion-card-subtitle style="font-size: 18px;">
+            <ion-icon name="star" color="warning"></ion-icon> {{ comic.average }}
+          </ion-card-subtitle>
+          <ion-card-title>{{ comic.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content style="font-size: 18px;">
+          <div class="ion-text-left" style="display: inline-block;width: 50%;">
+            <ion-icon name="eye"></ion-icon><ion-label> {{ comic.view }} </ion-label>
+          </div>
+          <div class="ion-text-right" style="display: inline-block;width: 50%;">
+            <ion-icon name="chatbubble"></ion-icon><ion-label> {{ comic.count_comment }} </ion-label>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

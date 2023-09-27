@@ -1,0 +1,64 @@
+<ion-content>
+  <ion-slides [options]="carousel" pager="true" style="height: 60%;background-image: url(assets/img/background.jpg); background-size: cover;">
+    <ion-slide *ngFor="let view of views">
+      <div class="slide" style="cursor: pointer;" (click)="updateView(view.comic_id)">
+        <img style="height: 350px;" src="{{ view.cover }}" />
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <br><br><br>
+  <ion-item-group>
+    <ion-title>
+      <strong>Comics with Highest Rating</strong>
+    </ion-title>
+  </ion-item-group>
+  <ion-segment [scrollable]="true" value="all" style="height: auto !important;">
+    <ion-card-content value="all" *ngFor="let rating of ratings" style="padding: 0 !important; margin-left: auto; margin-right: auto;">
+      <ion-card style="width: 171px !important; padding: 0 !important;">
+        <img src="{{ rating.cover }}" style="cursor: pointer;" (click)="updateView(rating.comic_id)" />
+        <ion-card-header class="ion-text-capitalize" style="padding-left: 16px;padding-right: 16px;padding-bottom: 16px;padding-top: 30px;">
+          <ion-card-subtitle style="font-size: 18px; text-align: left;" class="ion-text-capitalize">
+            <ion-icon name="star" color="warning"></ion-icon> {{ rating.average }}
+          </ion-card-subtitle>
+          <ion-card-title style="font-size: 20px !important; height: fit-content; text-align: left;">{{ rating.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content style="font-size: 18px;">
+          <div class="ion-text-left" style="display: inline-block;width: 50%;">
+            <ion-icon name="eye"></ion-icon><ion-label> {{ rating.view }} </ion-label>
+          </div>
+          <div class="ion-text-right" style="display: inline-block;width: 50%;">
+            <ion-icon name="chatbubble"></ion-icon><ion-label> {{ rating.count_comment }} </ion-label>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-segment>
+  <br><br>
+  <ion-item-group>
+    <ion-title>
+      <strong>Top Comments</strong>
+    </ion-title>
+  </ion-item-group>
+  <ion-segment [scrollable]="true" value="all" style="height: auto !important;">
+    <ion-card-content value="all" *ngFor="let comment of comments" style="padding: 0 !important; margin-left: auto; margin-right: auto;">
+      <ion-card style="width: 171px !important; padding: 0 !important;">
+        <img src="{{ comment.cover }}" style="cursor: pointer;" (click)="updateView(comment.comic_id)" />
+        <ion-card-header class="ion-text-capitalize" style="padding-left: 16px;padding-right: 16px;padding-bottom: 16px;padding-top: 30px;">
+          <ion-card-subtitle style="font-size: 18px; text-align: left;" class="ion-text-capitalize">
+            <ion-icon name="star" color="warning"></ion-icon> {{ comment.average }}
+          </ion-card-subtitle>
+          <ion-card-title style="font-size: 20px !important; height: fit-content; text-align: left;">{{ comment.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content style="font-size: 18px;">
+          <div class="ion-text-left" style="display: inline-block;width: 50%;">
+            <ion-icon name="eye"></ion-icon><ion-label> {{ comment.view }} </ion-label>
+          </div>
+          <div class="ion-text-right" style="display: inline-block;width: 50%;">
+            <ion-icon name="chatbubble"></ion-icon><ion-label> {{ comment.count_comment }} </ion-label>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-segment>
+  <br>
+</ion-content>
